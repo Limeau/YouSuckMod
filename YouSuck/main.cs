@@ -1,3 +1,4 @@
+using AmongUs.Data.Player;
 using BepInEx;
 using HarmonyLib;
 using UnityEngine;
@@ -19,19 +20,19 @@ public class Main : BasePlugin
     public static Main Instance;
     public static ManualLogSource Logger;
     public Harmony harmony = new Harmony("com.Limeau.YouSuckMod");
-        
+
     public override void Load()
     {
         Instance = this;
         Logger = BepInEx.Logging.Logger.CreateLogSource("YouSuckMod");
-        dispatcher = AddComponent<Dispatcher>();
-                
+
         harmony.PatchAll();
 
         ConsoleManager.DetachConsole();
         Logger.LogInfo("========= You Suck! =========");
     }
-    
+}
+
 [HarmonyPatch(typeof(PlayerBanData), nameof(PlayerBanData.BanMinutesLeft), MethodType.Getter)]
 public static class DisconnectPenaltyPatch
 {
